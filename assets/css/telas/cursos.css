@@ -1,0 +1,34 @@
+/* ==========================================================================
+   TELAS › CURSOS OPERACIONAIS, CONDUTORES DE EMBARCAÇÃO, MOTORISTAS
+   (#cursos, #embarcacao, #motoristas)
+   ========================================================================== */
+/* cursos marcados ("ou" / "e") */
+.sel-chips { align-items: center; gap: 6px; }
+.sel-chips .op { font-size: 12px; font-style: italic; }
+.chip.course.on { border-color: var(--fg); color: var(--fg); background: var(--sel-bg); }
+
+/* embarcação: habilitações (filtro) e quadro "Como a planilha foi lida" */
+.emb-nota { font-size: 13.5px; margin: 0 0 10px; color: var(--fg-2); }
+.emb-tbl td { vertical-align: top; }
+.emb-tbl .select { min-width: 220px; max-width: 360px; width: 100%; }
+.emb-lida { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.emb-lida .bad-t, .bad-t { color: var(--bad, #c0392b); font-weight: 600; }
+.emb-val { display: inline-block; font-size: 12px; padding: 2px 7px; margin: 0 4px 4px 0; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--line); }
+.emb-val.ign { text-decoration: line-through; color: var(--muted); }
+.emb-habs { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+.emb-hab { font: inherit; font-size: 12px; padding: 3px 9px; border-radius: 4px; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg); cursor: pointer; }
+.emb-hab b { margin-left: 4px; }
+.emb-hab.on { background: var(--fg); color: var(--surface); border-color: var(--fg); }
+/* botões de exportação ao lado das habilitações */
+.panel-h .exp-btns + .emb-habs, .panel-h .emb-habs + .exp-btns { margin-left: 8px; }
+#eLista .panel-h { flex-wrap: wrap; gap: 6px 10px; }
+
+/* lista de cursos: no celular vira painel fixo na parte de baixo (como as outras listas de seleção) */
+#cMulti .multi-foot { align-items: center; }
+#cMulti .multi-foot .btn-row { gap: 6px; flex-wrap: nowrap; }
+#cMulti .multi-foot .btn:disabled { opacity: .45; cursor: default; }
+@media (max-width: 720px) {
+  #cMulti .multi-pop { position: fixed; z-index: 45; left: max(10px, env(safe-area-inset-left, 0px)); right: max(10px, env(safe-area-inset-right, 0px)); top: auto;
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px)); width: auto; max-height: 66dvh; box-shadow: 0 -6px 30px rgba(0, 0, 0, .45); }
+  #cMulti .multi-list { max-height: calc(66dvh - 150px); }
+}
