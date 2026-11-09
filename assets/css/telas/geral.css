@@ -1,0 +1,29 @@
+/* ==========================================================================
+   TELA › GERAL (#geral)
+   Calendário retrátil com as férias do dia, quadros das frações no arranjo do
+   Data Studio (disponíveis/efetivo no topo) e ficha do militar na coluna fixa.
+   ========================================================================== */
+.geral { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
+.geral-main { display: grid; gap: 16px; min-width: 0; }
+.geral-aside { display: grid; gap: 16px; position: sticky; top: var(--stick, 96px); max-height: calc(var(--vh, 100dvh) - var(--stick, 96px) - 12px); overflow-y: auto; scrollbar-width: thin; min-width: 0; }
+
+/* férias do dia ao lado do calendário */
+.cal-ferias { flex: 1 1 300px; min-width: 0; }
+.cal-ferias h4 { color: var(--muted); letter-spacing: .08em; text-transform: uppercase; display: flex; gap: 6px; }
+.cal-ferias .tbl-wrap { max-height: 300px; overflow-y: auto; border: 1px solid var(--line); border-radius: var(--r); }
+
+/* Ala PEMAD de serviço: o nome é mais longo, então "de serviço" vai para a linha de baixo */
+.roster.ala .roster-h { flex-wrap: wrap; row-gap: 0; }
+.roster.ala .roster-h .on-duty { order: 3; flex-basis: 100%; margin: 0; }
+
+/* quadros: "disponíveis/efetivo" e marcas de afastamento */
+.roster-h .n b { color: var(--fg); font-weight: 700; }
+.roster-h .n.desc b { color: var(--warn, #b7791f); }
+.roster li .off.disp { color: var(--info); }
+.disp-tag { font-style: normal; font-size: 10px; font-weight: 700; color: var(--info); text-transform: uppercase; }
+
+/* ficha do militar */
+.fg { display: grid; gap: 12px; }
+.fg-name { font-family: var(--f-display); font-size: 21px; font-weight: 600; text-align: center; line-height: 1.15; }
+.fg .mil-sub { text-align: center; margin-top: -8px; }
+.fg .chips { justify-content: center; }
