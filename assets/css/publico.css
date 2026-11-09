@@ -1,0 +1,53 @@
+/* ==========================================================================
+   PÁGINA PÚBLICA DOS EMPENHOS (empenhos.html) — usa base.css e telas/empenhos.css
+   Cabeçalho discreto: superfície do painel, fio vermelho fino, brasões nos cantos.
+   ========================================================================== */
+body.pub { margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg); font-family: var(--f-body, 'Barlow', system-ui, sans-serif); display: flex; flex-direction: column; }
+.pub-cab { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 12px max(16px, env(safe-area-inset-left)) 12px max(16px, env(safe-area-inset-right));
+  background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: inset 0 -3px 0 var(--red); }
+.pub-brasao { width: 58px; height: 58px; object-fit: contain; }
+.pub-brasao[hidden] { visibility: hidden; display: block; }
+.pub-tit { text-align: center; min-width: 0; }
+.pub-und { margin: 0; font-family: var(--f-display, 'Chakra Petch', sans-serif); font-weight: 600; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-2); }
+.pub-tit h1 { margin: 2px 0 0; font-family: var(--f-display, 'Chakra Petch', sans-serif); font-weight: 700; font-size: clamp(18px, 2.6vw, 26px); letter-spacing: .01em; line-height: 1.15; color: var(--fg); }
+.pub-tit h1 .per { white-space: nowrap; }
+
+.pub-main { flex: 1; width: 100%; box-sizing: border-box; padding: 14px 16px 24px; display: grid; gap: 12px; align-content: start; }
+.pub-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.pub-nav { display: flex; align-items: stretch; border: 1px solid var(--line-2); border-radius: var(--r, 6px); background: var(--surface); overflow: hidden; min-width: 0; }
+.pub-nav button { border: 0; background: none; color: var(--fg-2); width: 38px; cursor: pointer; font-size: 18px; line-height: 1; }
+.pub-nav button:hover:not(:disabled) { background: var(--hover); color: var(--fg); }
+.pub-nav button:disabled { opacity: .35; cursor: default; }
+.pub-nav select { border: 0; border-left: 1px solid var(--line); border-right: 1px solid var(--line); background: var(--surface); color: var(--fg); font: inherit; font-weight: 600; font-size: 14px; padding: 8px 10px; min-width: 0; max-width: 100%; }
+.pub-hoje { border: 1px solid var(--line-2); border-radius: var(--r, 6px); background: var(--surface); color: var(--fg-2); font: inherit; font-weight: 600; font-size: 13px; padding: 8px 12px; cursor: pointer; }
+.pub-hoje:hover { color: var(--fg); background: var(--hover); }
+.pub-grav { font-size: 12.5px; color: var(--muted); margin-left: auto; }
+
+/* quadros: só leitura */
+.pub .emp-row { cursor: default; grid-template-columns: 18px minmax(0, 1fr) auto; }
+.pub .emp-row:hover { background: none; }
+.pub .emp-lista li:nth-child(even) .emp-row:hover { background: color-mix(in srgb, var(--fg) 3.5%, transparent); }
+.pub-obs { padding: 8px 10px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--fg); white-space: pre-wrap; min-height: 34px; }
+.pub-obs > span { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; margin-bottom: 3px; white-space: normal; }
+.pub-obs .vazio { color: var(--muted); }
+.pub-msg { margin: 24px auto; max-width: 520px; text-align: center; color: var(--fg-2); line-height: 1.5; }
+.pub-msg b { color: var(--fg); }
+.pub-rod { padding: 10px 16px 18px; font-size: 12px; color: var(--muted); text-align: center; }
+
+@media (max-width: 640px) {
+  .pub-cab { gap: 10px; padding-top: 10px; padding-bottom: 10px; }
+  .pub-brasao { width: 40px; height: 40px; }
+  .pub-und { font-size: 10.5px; letter-spacing: .1em; }
+  .pub-tit h1 { font-size: 17px; }
+  .pub-main { padding: 10px 10px 20px; }
+  .pub-barra { gap: 8px; }
+  .pub-nav { flex: 1 1 100%; }
+  .pub-nav select { flex: 1; }
+  .pub-grav { margin-left: 0; }
+}
+@media print {
+  .pub-barra, .emp-tabs, .pub-rod { display: none !important; }
+  .pub-cab { box-shadow: none; border-bottom: 2px solid #c00; }
+}
+/* cabe a semana inteira numa tela larga sem rolar para o lado */
+@media (min-width: 901px) { .pub .emp-semana { grid-template-columns: repeat(7, minmax(196px, 1fr)); gap: 10px; } }
