@@ -1,0 +1,17 @@
+/* ==========================================================================
+   TELAS › ACESSO (login), CARREGANDO E ERRO (app/app.js → telaEstado)
+   ========================================================================== */
+.login { min-height: calc(var(--vh, 100dvh) - 160px); display: grid; place-items: center; }
+.login-card { width: min(420px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 28px; display: grid; gap: 18px; text-align: center; justify-items: center; }
+.login-card .emblem { width: 64px; height: 74px; }
+.login-card h2 { font-size: 24px; text-transform: uppercase; letter-spacing: .02em; }
+.login-form { display: grid; gap: 10px; width: 100%; text-align: left; }
+.login-form .field { max-width: none; }
+.login-form .btn { height: 42px; }
+.g-btn { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px; border-radius: var(--r); border: 1px solid var(--line-2); background: var(--surface-2); font-weight: 600; cursor: pointer; }
+/* senha com o olho para mostrar/esconder */
+.lf-senha { position: relative; }
+.lf-senha .input { width: 100%; padding-right: 44px; }
+.lf-olho { position: absolute; top: 0; right: 0; height: 100%; width: 42px; display: grid; place-items: center; border: 0; background: none; color: var(--muted); cursor: pointer; border-radius: 0 var(--r) var(--r) 0; }
+.lf-olho:hover, .lf-olho[aria-pressed="true"] { color: var(--fg); }
+.lf-olho svg.i { width: 19px; height: 19px; }
