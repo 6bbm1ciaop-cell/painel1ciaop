@@ -1,0 +1,71 @@
+/* ==========================================================================
+   TELAS › MAPAS (#articulacao, #conservacao, #inundacoes, #balnearios)
+   Só o mapa, ocupando a tela, com botões para trocar de mapa. Os mapas ficam
+   guardados (carregam uma vez) dentro de .map-cache.
+   ========================================================================== */
+.page.map-tela { gap: 10px; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.map-tela > * { min-width: 0; }
+.map-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.map-bar h1 { margin: 0; font-family: var(--f-display); font-size: 20px; letter-spacing: .02em; text-transform: uppercase; flex: 1 1 260px; min-width: 0; }
+.map-abrir span { display: none; }
+.map-abrir { padding: 0 10px; }
+@media (min-width: 1600px) { .map-abrir span { display: inline; } }
+.map-bar .seg a { display: inline-flex; align-items: center; padding: 8px 14px; font-weight: 600; font-size: 14px; color: var(--fg-2); background: var(--surface); text-decoration: none; white-space: nowrap; }
+.map-bar .seg a + a { border-left: 1px solid var(--line-2); }
+.map-bar .seg a[aria-selected="true"] { background: var(--fg); color: var(--bg); }
+.map-bar .seg a:hover:not([aria-selected="true"]) { background: var(--hover); }
+.map-tela .map-box { aspect-ratio: auto; max-height: none; height: calc(var(--vh, 100vh) * .70); }
+.map-tela .map-slot { min-height: calc(var(--vh, 100vh) * .60); }
+@media (max-width: 900px) {
+  .map-bar { position: relative; }
+  .map-bar h1 { font-size: 16px; flex-basis: 100%; padding-right: 52px; }
+  .map-bar .seg { display: flex; flex: 1 1 100%; min-width: 0; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .map-bar .seg a { flex: 1 0 auto; justify-content: center; padding: 8px 10px; font-size: 13px; }
+  .map-abrir span { display: none; }
+  .map-abrir { position: absolute; right: 0; top: -6px; }
+}
+
+/* mapas guardados */
+.map-cache { position: absolute; top: 0; left: -10000px; width: 1000px; height: 700px; z-index: 2; visibility: hidden; pointer-events: none; border-radius: var(--r); overflow: hidden; }
+.map-cache.ativo { visibility: visible; pointer-events: auto; }
+.map-cache .map-fr { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; visibility: hidden; }
+.map-cache.ativo .map-fr.on { visibility: visible; }
+.map-carregando { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+.map-carregando svg { width: 28px; height: 28px; }
+
+/* botão do mapa selecionado com a seta ▾ (consultas rápidas, ex.: réguas CPRM × SAAE) */
+.map-bar { position: relative; }
+.map-bar .seg .map-tab { display: inline-flex; align-items: stretch; background: var(--fg); }
+.map-bar .seg .map-tab + a, .map-bar .seg a + .map-tab { border-left: 1px solid var(--line-2); }
+.map-bar .seg .map-tab a { background: transparent; color: var(--bg); padding-right: 6px; }
+.map-mais { display: grid; place-items: center; width: 32px; border: 0; border-left: 1px solid color-mix(in srgb, var(--bg) 25%, transparent); background: transparent; color: var(--bg); cursor: pointer; }
+.map-mais:hover { background: color-mix(in srgb, var(--bg) 12%, transparent); }
+.map-mais svg.i { width: 16px; height: 16px; transition: transform .15s; }
+.map-mais[aria-expanded="true"] svg.i { transform: rotate(180deg); }
+/* a cortina fica por cima do mapa */
+/* a lista fica à direita e a imagem abre à esquerda dela: a lista não sai do lugar sob o mouse */
+.map-cortina { position: absolute; right: 0; z-index: 60; display: flex; flex-direction: row-reverse; align-items: flex-start; gap: 10px; padding: 10px; max-width: calc(100vw - 24px);
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r); box-shadow: 0 14px 40px rgba(0, 0, 0, .5); }
+.map-cortina[hidden] { display: none; }
+.map-cort-lista { display: grid; gap: 4px; width: 280px; flex: none; }
+.map-cort-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border: 1px solid transparent; border-radius: var(--r); background: none; color: var(--fg); text-align: left; cursor: pointer; font: inherit; }
+.map-cort-item span { display: grid; gap: 2px; }
+.map-cort-item small { color: var(--muted); font-size: 12px; }
+.map-cort-item svg.i { width: 18px; height: 18px; flex: none; color: var(--info); }
+.map-cort-item:hover, .map-cort-item.on { background: var(--hover); }
+.map-cort-item.fixo { border-color: var(--info); }
+.map-cort-dica { margin: 4px 2px 0; font-size: 11.5px; color: var(--muted); }
+.map-cort-img { margin: 0; display: grid; gap: 6px; width: min(500px, calc(100vw - 600px)); min-width: 300px; }
+.map-cort-img[hidden] { display: none; }
+.map-cort-img img { display: block; width: 100%; height: auto; max-height: min(72vh, 640px); object-fit: contain; border-radius: 4px; background: #fff; }
+.map-cort-img figcaption { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12.5px; color: var(--fg-2); }
+.map-cort-img figcaption a { display: inline-flex; align-items: center; gap: 4px; color: var(--info); }
+.map-cort-img figcaption svg.i { width: 14px; height: 14px; }
+@media (max-width: 720px) {
+  .map-cortina { flex-direction: column; left: 0 !important; right: 0; }
+  .map-cort-lista { width: 100%; }
+  .map-cort-img { width: 100%; min-width: 0; }
+  .map-cort-img img { max-height: 60vh; }
+}
+.map-cort-dica .so-toque { display: none; }
+@media (hover: none) { .map-cort-dica .so-mouse { display: none; } .map-cort-dica .so-toque { display: inline; } }
