@@ -1,0 +1,41 @@
+/* ==========================================================================
+   IMPRESSÃO E PDF
+   1) @media print: o que some e como fica a folha ao imprimir (Ctrl+P ou
+      "Relatório em PDF").
+   2) body.imprimindo: tela preparada pelo botão "PDF da tela"
+      (interface/exporta.js → UI.exp.imprimirTela): sem menu, topo e botões,
+      mais compacta; o zoom e a largura são definidos pelo encaixe na folha A4.
+   Fica por último para vencer as regras das telas.
+   ========================================================================== */
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #fff !important; }
+  .sidebar, .topbar, .bottom-nav, .demo-band, .scrim, .fd-dica, .map-cache, .sheet, .no-print, .exp-btns,
+  .filters, .dc-nav, .dc-lista, .dd-filtro .btn, .obs-q .btn, .cal-toggle .chev { display: none !important; }
+  .app, .main { display: block !important; }
+  .content { padding: 0 !important; margin: 0 !important; max-width: none !important; overflow: visible !important; }
+  .panel, .kpi, .roster, .mini-charts > * { break-inside: avoid; box-shadow: none !important; }
+  .tbl-wrap, .tbl-wrap.scroll-y { max-height: none !important; overflow: visible !important; }
+  .page-head { border-bottom: 2px solid #111; }
+  .dc-layout, .dc-layout.sem-lista { display: block !important; }
+  .reveal { display: none !important; }
+}
+
+/* tela preparada para PDF (vale na tela e na impressão) */
+body.imprimindo .sidebar, body.imprimindo .topbar, body.imprimindo .bottom-nav, body.imprimindo .demo-band, body.imprimindo .scrim,
+body.imprimindo .fd-dica, body.imprimindo .map-cache, body.imprimindo .no-print, body.imprimindo .exp-btns, body.imprimindo .filters,
+body.imprimindo .dc-nav, body.imprimindo .dc-lista, body.imprimindo .dd-filtro .btn, body.imprimindo .obs-q .btn, body.imprimindo .cal-toggle .chev,
+body.imprimindo .reveal, body.imprimindo .app-foot, body.imprimindo footer.foot { display: none !important; }
+body.imprimindo .app, body.imprimindo .main { display: block !important; min-height: 0 !important; }
+body.imprimindo #view { padding: 0 !important; margin: 0 !important; max-width: none !important; overflow: visible !important; background: #fff; }
+body.imprimindo .tbl-wrap, body.imprimindo .tbl-wrap.scroll-y { max-height: none !important; overflow: visible !important; }
+body.imprimindo .dc-layout, body.imprimindo .dc-layout.sem-lista { display: block !important; }
+body.imprimindo .page { gap: 8px; }
+@media print { body.imprimindo .panel, body.imprimindo .kpi, body.imprimindo .roster { break-inside: auto; } }
+/* PDF da tela: mais compacto (gráficos mais baixos, espaços menores) para caber em uma folha */
+body.imprimindo .grid, body.imprimindo .kpis, body.imprimindo .mini-charts { gap: 8px; }
+body.imprimindo .panel-b { padding: 8px 10px; }
+body.imprimindo .mini-charts { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+body.imprimindo svg.chart { max-height: 170px; }
+body.imprimindo .mini-charts svg.chart { max-height: 130px; }
+body.imprimindo .page-head p { display: none; }
