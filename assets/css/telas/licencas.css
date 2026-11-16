@@ -1,0 +1,53 @@
+/* ==========================================================================
+   TELA › LICENÇAS E DISPENSAS (#licencas)
+   Tabela (Todas / Licenças / Dispensas, "hoje" no cabeçalho) e painel fixo do
+   militar com dias por ano, afastamentos e itens da dispensa.
+   Licença = borda laranja; dispensa = borda azul; em vigor hoje = fundo vermelho.
+   ========================================================================== */
+.ld-grid { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 10px; align-items: start; }
+.ld-grid .tbl-wrap.scroll-y { max-height: calc(var(--vh, 100dvh) - var(--stick, 96px) - 120px); }
+.ld-h { padding: 6px 10px; flex-wrap: wrap; gap: 6px 10px; }
+.ld-h .seg button { padding: 5px 12px; font-size: 12.5px; }
+.ld-hojes { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+.ld-hoje { font: inherit; font-size: 12.5px; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg-2); cursor: pointer; }
+.ld-hoje b { margin-left: 4px; color: var(--fg); font-variant-numeric: tabular-nums; }
+.ld-hoje.tem { border-color: color-mix(in srgb, var(--warn, #b7791f) 60%, var(--line)); }
+.ld-hoje.tem b { color: var(--warn, #b7791f); }
+.ld-hoje:hover { background: var(--hover); }
+.ld-hoje.on { background: var(--fg); color: var(--surface); border-color: var(--fg); }
+.ld-hoje.on b { color: var(--surface); }
+.ld-tipo { font-size: 12.5px; font-weight: 600; padding-left: 6px; border-left: 3px solid var(--warn); }
+.ld-tipo.d { border-left-color: var(--info); }
+.tbl tr.ld-vigor td { background: color-mix(in srgb, var(--bad) 11%, transparent); }
+.tbl tr.ld-mesmo:not(.sel) td:first-child { box-shadow: inset 3px 0 0 var(--fg); }
+.ld-sim { color: var(--bad); }
+
+/* painel do militar */
+.ld-painel { position: sticky; top: var(--stick, 96px); max-height: calc(var(--vh, 100dvh) - var(--stick, 96px) - 12px); overflow-y: auto; }
+.ld-painel .panel-h { min-height: 38px; padding: 6px 12px; }
+.ld-painel .icon-btn { width: 28px; height: 28px; }
+.ld { display: grid; gap: 10px; }
+.ld-cab { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.ld-ano { display: flex; align-items: center; gap: 2px; font-family: var(--f-display); font-size: 15px; }
+.ld-ano .icon-btn { width: 26px; height: 26px; }
+.ld-tot { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.lt { border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: var(--r); padding: 8px 10px; display: grid; gap: 0; }
+.lt.dsp { border-left-color: var(--info); }
+.lt small { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 600; }
+.lt b { font-family: var(--f-display); font-size: 26px; font-weight: 600; line-height: 1.15; }
+.lt span { font-size: 12px; color: var(--muted); }
+.ld-lista { margin: 0; padding: 0; list-style: none; display: grid; gap: 3px; }
+.ld-lista button { display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; text-align: left; border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: var(--r); background: var(--surface); color: var(--fg); padding: 5px 9px; cursor: pointer; font-size: 13px; }
+.ld-lista li.d button { border-left-color: var(--info); }
+.ld-lista li.on button { box-shadow: inset 0 0 0 1px var(--fg); background: var(--surface-2); }
+.ld-lista small { display: block; color: var(--muted); font-size: 11.5px; }
+.ld-lista em { font-style: normal; font-size: 10.5px; font-weight: 700; text-transform: uppercase; }
+.ld-lista .num { font-weight: 700; white-space: nowrap; }
+.ld-reg { border-top: 1px solid var(--line); padding-top: 8px; display: grid; gap: 6px; }
+.ld-itens { margin: 0; padding: 0; list-style: none; display: grid; gap: 3px; }
+.ld-itens li { padding: 5px 9px; border-left: 3px solid var(--info); background: color-mix(in srgb, var(--info) 8%, transparent); border-radius: 0 var(--r) var(--r) 0; font-size: 13px; }
+.ld-vazio { display: grid; justify-items: center; gap: 8px; text-align: center; color: var(--muted); font-size: 13px; padding: 20px 6px; }
+.ld-vazio svg.i { width: 28px; height: 28px; }
+
+/* até 1100px o painel do militar abre em janela */
+@media (max-width: 1100px) { .ld-grid { grid-template-columns: minmax(0, 1fr); } .ld-painel { display: none; } .ld-grid .tbl-wrap.scroll-y { max-height: none; } }

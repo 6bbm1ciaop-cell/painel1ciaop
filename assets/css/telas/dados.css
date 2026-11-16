@@ -1,0 +1,50 @@
+/* ==========================================================================
+   TELA › DADOS COMPLETOS (#dados)
+   Filtros no topo, lista de militares retrátil, navegação anterior/próximo e
+   ficha completa em seções (2 ou 3 colunas).
+   ========================================================================== */
+.dc-filtros .field { flex: 1 1 140px; max-width: 230px; min-width: 0; }
+.dc-filtros .field:first-child { flex: 1.4 1 180px; max-width: 280px; }
+.dc-filtros .num-f { flex: 1.2 1 170px; max-width: 250px; }
+.dc-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.dc-nav .btn .count { font-family: var(--f-body); font-weight: 500; opacity: .75; margin-left: 2px; }
+.dc-pag { display: flex; align-items: center; gap: 6px; margin-left: auto; font-size: 13.5px; color: var(--fg-2); }
+.dc-pag .icon-btn { border-color: var(--line-2); }
+.dc-pag .icon-btn:disabled { opacity: .35; cursor: default; }
+
+.dc-layout { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 12px; align-items: start; }
+.dc-layout.sem-lista { grid-template-columns: minmax(0, 1fr); }
+.dc-lista { position: sticky; top: var(--stick, 96px); }
+.dc-lista #dScroll { max-height: calc(var(--vh, 100dvh) - var(--stick, 96px) - 70px); border-top: 0; }
+
+/* lista de militares */
+.mil-pick { display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 16px; border: 0; background: none; text-align: left; cursor: pointer; color: var(--fg); }
+.mil-pick:hover { background: var(--hover); }
+.mil-pick[aria-current="true"] { background: var(--sel-bg); box-shadow: inset 3px 0 0 var(--sel-bar); }
+.mil-pick .av { width: 34px; height: 34px; border-radius: 50%; flex: none; aspect-ratio: auto; font-size: 12px; }
+.mil-pick .tx { flex: 1; min-width: 0; }
+.mil-pick .tx b { display: block; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mil-pick .tx small { color: var(--muted); }
+.stale { color: var(--warn); }
+
+/* ficha */
+.dc-head { display: grid; grid-template-columns: clamp(110px, 16vw, 170px) minmax(0, 1fr); gap: 18px; align-items: start; }
+.dc-head .photo { font-size: 38px; }
+.dc-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
+.dc-kpis .kpi { padding: 10px 12px; }
+.dc-kpis .kpi-v { font-size: 24px; }
+.dc-sections { columns: 2 380px; column-gap: 16px; }
+.dc-sections > .panel { break-inside: avoid; margin-bottom: 16px; display: block; }
+.dc-layout.sem-lista .dc-sections { columns: 3 340px; }
+
+@media (max-width: 1100px) {
+  .dc-layout { grid-template-columns: minmax(0, 1fr); }
+  .dc-lista { position: static; }
+  .dc-lista #dScroll { max-height: min(calc(var(--vh, 100vh) * .50), 460px); }
+}
+@media (max-width: 720px) {
+  .dc-head { grid-template-columns: 96px minmax(0, 1fr); gap: 12px; }
+  .dc-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dc-pag { margin-left: 0; width: 100%; justify-content: space-between; }
+  .dc-nav .btn { flex: 1 1 auto; }
+}
